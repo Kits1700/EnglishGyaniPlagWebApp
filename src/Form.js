@@ -21,26 +21,30 @@ export  default function Form({ user }) {
   const [option5, setOption5] = useState('');
   const [option6, setOption6] = useState('');
 
+  const [b,setB] = useState([]);
   const [teacher,setTeacher] = useState([]);
   const [category,setCategory] = useState([]);
   const [topic,setTopic] = useState([]);
   const [type,setType] = useState([]);
   const [ques,setQues] = useState([]);
   const [td,setTD] = useState([]);
+  const [t,setT] = useState([]);
   const [sques,setSques] = useState([]);
   const [desc,setDesc] = useState([]);
   const [choices,setChoices] = useState([]);
   const [ans,setAns] = useState([]);
   const [qidtemp,setQid] = useState([]);
-
+  const[newiN,setIN] = useState([]);
   const [newq,setNewq] = useState([]);
   const [newchoices,setNewchoices] = useState([]);
   const [newans,setNewans] = useState([]);
   const [newi,setI] = useState([]);
   const [keys,setKeys] = useState([]);
-
+  const [newk,setK] = useState([]);
   const [count1,setCount1] = useState([]);
+  const [TN,setTopicName] = useState([]);
   const [ profile, setProfile ] = useState([]);
+  const [flagD,setFlagD] = useState([]);
   var userCount;
   const [ testcount, setTest ] = useState([]);
   const [searchparams] = useSearchParams();
@@ -105,6 +109,7 @@ const logOut = () => {
   const handleOption4Change = (event) => {
     setOption4(event.target.value);
     setType(event.target.value);
+    setT(event.target.value);
 
   };
   const handleOption5Change = (event) => {
@@ -150,13 +155,16 @@ const logOut = () => {
       }
     });
 if(flaguser == 0)
-{ firebaseRef.child('users').push({
-      name:user.displayName,
-      email:user.email,
-      numCorrected: 0
-    });
-  
+{
+  firebaseRef.child('users').push({
+    name: user.displayName,
+    email: user.email,
+    numCorrected: 0,
+    quescorr: []
+  });
 }
+  
+
   // else{
   //   firebaseRef.child('users').push({
   //     name:user.displayName,
@@ -206,14 +214,26 @@ if(flaguser == 0)
   }
   // const [data, setData] = useState([]);
   var test = []
+
+  // var ref = firebase.database().ref('/users');
+  // ref.remove()
+  //   .then(function() {
+  //       console.log("Record deleted successfully");
+  //   })
+  //   .catch(function(error) {
+  //       console.log("Error deleting record: " + error.message);
+  //   });
+
   const fetchData = async () => {
     const dbRef = ref(getDatabase());
+    
     get(child(dbRef, `data/questionbank`)).then((snapshot) => {
+      console.log("Outer");
       if (snapshot.exists()) {
-       
+       console.log("Inner");
         snapshot.forEach((childSnapshot) => {
                   const childData = childSnapshot.val();
-                  // console.log("Keys",childSnapshot.key);
+                  console.log("Keys",childSnapshot.key);
                   let keyarr = [];
                   keyarr.push(childSnapshot.key); 
             
@@ -226,29 +246,43 @@ if(flaguser == 0)
                   //   }
                   // }
                   
-            
-                  if((teacher==childData.teacher_info)&&(category==childData.category_id)&&(topic==childData.topic_id)&&(td==childData.topic_difficulty))
+                 for( let i = 0; i<childData.topics_content.length;i++)
+                 for(let k = 0; k<childData.topics_content[i].topic_content.length;k++)
+                 { setK(k);
+                  setTopicName(childData.topics_content[i].topic_name);
+                {console.log("Length",childData.topics_content.length);
+                console.log("Teacher Info",childData.topics_content[i].teacher_info);
+                console.log("Cat ID",childData.category_id);
+                console.log("Topic ID",childData.topics_content[i].topic_id);
+                console.log("Difficulty",childData.topics_content[i].topic_content[k].level_difficulty);
+                console.log("Question Type",childData.topics_content[i].topic_content[k].type);
+                  if((teacher==childData.topics_content[i].teacher_info)&&(category==childData.category_id)&&(topic==childData.topics_content[i].topic_id)&&(td==childData.topics_content[i].topic_content[k].level_difficulty)&&(t==childData.topics_content[i].topic_content[k].type))
+                  {if(childData.topics_content[i].topic_content[k].type=="DND")
                   {
+                    setFlagD(1);
+                    setChoices("");
+                  }
+                    setIN(i)
                     // flag = 1;
                     console.log(childSnapshot.key);
                     setKeys(childSnapshot.key);
                     let q = ques;
-                    for(let i =0;i<childData.questions.length;i++)
+                    for(let j =0;j<childData.topics_content[i].topic_content[k].level_content.questions.length;j++)
                     {
                       console.log("Ques",ques);
-                      console.log("QID",childData.questions[i].qid)
-                      if(ques ==childData.questions[i].qid )
+                      console.log("QID",childData.topics_content[i].topic_content[k].level_content.questions[j].qid)
+                      if(ques ==childData.topics_content[i].topic_content[k].level_content.questions[j].qid )
                       {
                         // flagq = 1;
-                        setI(i);
-                        setQid(childData.questions[i].qid);
-                        setSques(childData.questions[i].question);
-                        setDesc(childData.questions[i].desc)
-                        setChoices(childData.questions[i].choices);
+                        setI(j);
+                        setQid(childData.topics_content[i].topic_content[k].level_content.questions[j].qid);
+                        setSques(childData.topics_content[i].topic_content[k].level_content.questions[j].question);
+                        setDesc(childData.topics_content[i].topic_content[k].desc)
+                        setChoices(childData.topics_content[i].topic_content[k].level_content.questions[j].choices);
                        
-                        if(childData.questions[i].question=="")
+                        if(childData.topics_content[i].topic_content[k].level_content.questions[j].question=="")
                         { 
-                          setAns(childData.questions[i].answers);
+                          setAns(childData.topics_content[i].topic_content[k].level_content.questions[j].answers);
                           
                         }
                     
@@ -262,14 +296,11 @@ if(flaguser == 0)
                     let teacher1 = teacher;
                     let category1 = category;
                     let topic1 = topic;
-                    let temp = teacher1 +"_"+category1 +"_"+ topic1;
-                    for(let i = 0;i<keyarr.length;i++)
-                    {
-                       
-                        console.log("Temp",temp);
-                        console.log("keyarr",keyarr[i]);
-                       
-                    }
+                    let type1 = t;
+                    let topicdiff1 = td;
+                    let qid1 = ques;
+                    let temp = teacher1 +"_"+category1 +"_"+ topic1+"_"+type1+"_"+topicdiff1+"_"+qid1;
+                    setB(temp);
                     
                   }
 
@@ -286,10 +317,10 @@ if(flaguser == 0)
                   console.log(topic);
                   console.log(td);
                   console.log("Child Data");
-                  console.log(childData.teacher_info);
+                  console.log(childData.topics_content[i].teacher_info);
                   console.log(childData.category_id);
-                  console.log(childData.topic_id);
-                  console.log(childData.topic_difficulty);
+                  console.log(childData.topics_content[i].topic_id);
+                  console.log(childData.topics_content[i].topic_difficulty);
                   let teacher1 = teacher;
                   let category1 = category;
                   let topic1 = topic;
@@ -324,17 +355,20 @@ if(flaguser == 0)
                 //   toast();
                 // }
           
-
+                }
+              }
 
               });
      
       } else { 
         console.log("No data available");
       }
+    
     }).catch((error) => {
       console.error(error);
     });
-  };
+  }
+;
   const handleQuestion = (event) => {
     setNewq(event.target.innerText);
   };
@@ -382,12 +416,13 @@ if(flaguser == 0)
     if(newq!="")
     {  
         
-        updates["data/" + "questionbank/" + keys + "/"+"questions" + "/" + newi + "/" + "question"] = newq;
+        updates["data/" + "questionbank/" + keys + "/"+"topics_content" + "/" + newiN + "/" + "topic_content"+ "/" + newk + "/" + "level_content" + "/" + "questions" + "/" + newi + "/"+"question"] = newq;
          
     update(ref(db), updates);
+    successtoast();
     }
     if(newans!=""){
-      updates["data/" + "questionbank/" + keys + "/"+"questions" + "/" + newi + "/" + "answers"] = newans;
+      updates["data/" + "questionbank/" + keys + "/"+"topics_content" + "/" + newiN + "/" + "topic_content"+ "/" + newk + "/" + "level_content" + "/" + "questions" + "/" + newi + "/" + "answers"] = newans;
      
       update(ref(db), updates);
 
@@ -395,22 +430,21 @@ if(flaguser == 0)
 
     for(let i =0 ;i<results.length;i++)
     {
-      updates["data/" + "questionbank/" + keys + "/"+"questions" + "/" + newi + "/" + "choices" + "/" + i] = newarray[i];
+      updates["data/" + "questionbank/" + keys + "/"+"topics_content" + "/" + newiN + "/" + "topic_content"+ "/" + newk + "/" + "level_content" + "/" + "questions" + "/" + newi +  "/" + "choices" + "/" + i] = newarray[i];
  
       update(ref(db), updates);
     }
     let refstr = "data/" + "questionbank/" + keys + "/"+"questions" + "/" + newi;
-    const dbref = ref(db, refstr);
 
-    let refstr1 = "data/" + "questionbank/" + keys + "/"+"questions" + "/" + newi;
-    const dbref1 = ref(db, refstr1);
 
-    push(dbref, {
-      modifiedby:user.displayName
-    })
-    push(dbref1, {
-      corrected:'yes'
-    })
+    update(ref(db), updates);
+    // let refstr1 = "data/" + "questionbank/" + keys + "/"+"topics_content" + "/" + newiN + "/" + "topic_content"+ "/" + newk + "/" + "level_content" + "/" + "questions" + "/" + newi+"/"+"ModifiedBy";
+    // const dbref1 = ref(db, refstr1);
+    // const dbref = ref(db, refstr1);
+    // push(dbref, {
+    //   modifiedby:user.displayName
+    // });
+  
     
     var userID;
 
@@ -426,6 +460,7 @@ if(flaguser == 0)
       if (userId) {
         // User exists in the database, update the count
         firebaseRef.child(`users/${userId}/numCorrected`).transaction(count => count + 1);
+        firebaseRef.child(`users/${userId}/quescorr`).push(b);
       }
    
 
@@ -434,15 +469,18 @@ if(flaguser == 0)
     successtoast();
 
   }
-  
+  const results = [];
+if(flagD!=1)
+{
 
-const results = [];
 choices.forEach(choice => {
   results.push(
    <p>{choice}</p>
   );
   
 });
+}
+
 
 console.log("jk");
 console.log(arrc);
@@ -518,12 +556,15 @@ console.log("NAME",localStorage.getItem("Name"));
 
     </div>
     <button className='submit' id = "enterbtn" onClick={fetchData}><i class="fa fa-sign-in" aria-hidden="true"></i> Enter</button>
-    <p class = "questioncorr">Number of questions corrected: {count1}</p>
+    {/* <p class = "questioncorr">Number of questions corrected: {count1}</p> */}
 <div className='editableText'>
   <div className='question'>
+  <p>Topic Name: {TN}</p>
 <p>{desc}</p>
+<p class = "p1" >Q:</p>
+  <p contentEditable="true" class = "p2" onInput={handleQuestion}>{sques}</p>
 
-<p contentEditable="true" onInput={handleQuestion}>{sques}</p>
+
    <p contentEditable="true" onInput={handleChoices}>{results}</p>
    <p contentEditable="true" onInput={handleAns}>{ans}</p>
    <p>{ console.log(user.displayName)}</p>

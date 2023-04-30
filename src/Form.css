@@ -8,10 +8,17 @@ body, html {
    
     /* overflow: hidden; */
     color: #222525;
-    overflow: scroll;
+    
 
   }
-  
+  .p1{
+
+    display: inline;
+  }
+  .p2{
+    display: inline;
+
+  }
   .hero-image {
     background-color: white;
     height:25vw;
@@ -259,9 +266,9 @@ button {
     box-shadow: rgba(11, 11, 12, 0.1) 0 0 0 1px inset, rgba(8, 8, 8, 0.2) 0 6px 15px 0, rgba(0, 0, 0, .1) 0 2px 2px 0, rgba(0, 0, 0, 0.3) 0 0 0 4px;
   }
   .signout{
-    transform: translate(35.5vw,10vw);
+    transform: translate(34.78vw,10vw);
     /* font-size: smaller; */
-    width: 8%;
+    width: 10%;
     height: min-content;
     background-color:#078080;
     color: #232323;
@@ -274,9 +281,338 @@ button {
     background-color:#0c9494;
     color: white
   }
+  @media screen and (max-width: 1280px) {
+   
+    .dropdowns-container {
+      transform: translateY(1.5vw);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      font-family: "Montserrat", sans-serif;
+     
+      font-size: small;
+    }
+    #enterbtn{
+      transform: translate(39.4vw,3.6vw);
+      font-size: small;
+      height: min-content;
+      background-color: #078080;
+      color: #232323;
+  
+    }
+    #enterbtn:hover{
+      transform: translate(39.4vw,3.6vw);
+      font-size: small;
+      height: min-content;
+      background-color: #0c9494;
+      color: white;
+  
+  
+    }
+    button {
+   
+  
+      appearance: button;
+      backface-visibility: hidden;
+      background-color:#078080;
+      border-radius: 40px;
+      border-width: 0;
+      box-shadow: rgba(50, 50, 93, .1) 0 0 0 1px inset,rgba(50, 50, 93, .3) 0 2px 5px 0,rgba(0, 0, 0, .07) 0 1px 1px 0;
+      box-sizing: border-box;
+      color: #232323; 
+      cursor: pointer;
+      font-family: "Montserrat", sans-serif;
+      font-size:small;
+      height: 44px;
+      line-height: 1.15;
+      margin: 12px 0 0;
+      outline: none;
+      overflow: hidden;
+      padding: 0 25px;
+      padding: 10px 20px 10px 20px;
+      
+      text-align: center;
+      text-transform: none;
+      transform: translate(39.8vw,6.3vw);
+  
+      transition: all .2s,box-shadow .08s ease-in;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+      width: 20%;
+      cursor: pointer;
+      height: min-content;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto;
+      
+    }
+    button:hover {
+      background-color: #0c9494;
+      color: white;
+    }
+    .signout{
+      transform: translate(20vw,12.5vw);
+      /* font-size: smaller; */
+      width: 20%;
+      height: min-content;
+      background-color:#078080;
+      color: #232323;
+    }
+    .signout:hover{
+      transform: translate(20vw,12.5vw);
+      /* font-size: smaller; */
+      width: 25%;
+      height: min-content;
+      background-color:#0c9494;
+      color: white
+    }
+    }
+
+  @media screen and (max-width: 1024px) {
+   body{
+    height: 120vw;
+   }
+    .dropdowns-container {
+      transform: translateY(1.5vw);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      font-family: "Montserrat", sans-serif;
+      margin-left: 3%;
+      margin-right: 3%;
+      font-size: small;
+    }
+    #enterbtn{
+      transform: translate(39.4vw,3.6vw);
+      font-size: small;
+      height: min-content;
+      background-color: #078080;
+      color: #232323;
+  
+    }
+    #enterbtn:hover{
+      transform: translate(39.4vw,3.6vw);
+      font-size: small;
+      height: min-content;
+      background-color: #0c9494;
+      color: white;
+  
+  
+    }
+    button {
+   
+  
+      appearance: button;
+      backface-visibility: hidden;
+      background-color:#078080;
+      border-radius: 40px;
+      border-width: 0;
+      box-shadow: rgba(50, 50, 93, .1) 0 0 0 1px inset,rgba(50, 50, 93, .3) 0 2px 5px 0,rgba(0, 0, 0, .07) 0 1px 1px 0;
+      box-sizing: border-box;
+      color: #232323; 
+      cursor: pointer;
+      font-family: "Montserrat", sans-serif;
+      font-size:small;
+      height: 44px;
+      line-height: 1.15;
+      margin: 12px 0 0;
+      outline: none;
+      overflow: hidden;
+      padding: 0 25px;
+      padding: 10px 20px 10px 20px;
+      
+      text-align: center;
+      text-transform: none;
+      transform: translate(39.8vw,6.3vw);
+  
+      transition: all .2s,box-shadow .08s ease-in;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+      width: 20%;
+      cursor: pointer;
+      height: min-content;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto;
+      
+    }
+    button:hover {
+      background-color: #0c9494;
+      color: white;
+    }
+    .signout{
+      transform: translate(20vw,13.5vw);
+      /* font-size: smaller; */
+      width: 20%;
+      height: min-content;
+      background-color:#078080;
+      color: #232323;
+    }
+    .signout:hover{
+      transform: translate(20vw,13.5vw);
+      /* font-size: smaller; */
+      width: 25%;
+      height: min-content;
+      background-color:#0c9494;
+      color: white
+    }
+    }
+
 
   @media screen and (max-width: 600px) {
+   body{
+    height: 200vw;
+   }
+    .dropdowns-container {
+      transform: translateY(1.5vw);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      font-family: "Montserrat", sans-serif;
+      margin-left: 3%;
+      margin-right: 3%;
+      font-size: small;
+    }
+  
+    button {
    
+  
+      appearance: button;
+      backface-visibility: hidden;
+      background-color:#078080;
+      border-radius: 40px;
+      border-width: 0;
+      box-shadow: rgba(50, 50, 93, .1) 0 0 0 1px inset,rgba(50, 50, 93, .3) 0 2px 5px 0,rgba(0, 0, 0, .07) 0 1px 1px 0;
+      box-sizing: border-box;
+      color: #232323; 
+      cursor: pointer;
+      font-family: "Montserrat", sans-serif;
+      font-size:small;
+      height: 44px;
+      line-height: 1.15;
+      margin: 12px 0 0;
+      outline: none;
+      overflow: hidden;
+      padding: 0 25px;
+      padding: 10px 20px 10px 20px;
+      
+      text-align: center;
+      text-transform: none;
+      transform: translate(44.5vw,6.3vw);
+  
+      transition: all .2s,box-shadow .08s ease-in;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+      width: 20%;
+      cursor: pointer;
+      height: min-content;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto;
+      
+    }
+    button:hover {
+      background-color: #0c9494;
+      color: white;
+    }
+    .signout{
+      transform: translate(25vw,14vw);
+      /* font-size: smaller; */
+      width: 20%;
+      height: min-content;
+      background-color:#078080;
+      color: #232323;
+    }
+    .signout:hover{
+      transform: translate(25vw,14vw);
+      /* font-size: smaller; */
+      width: 20%;
+      height: min-content;
+      background-color:#0c9494;
+      color: white
+    }
+    }
+
+    @media screen and (max-width: 375px) {
+   
+      .dropdowns-container {
+        transform: translateY(1.5vw);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        font-family: "Montserrat", sans-serif;
+        margin-left: 3%;
+        margin-right: 3%;
+        font-size: small;
+      }
+    
+      button {
+     
+    
+        appearance: button;
+        backface-visibility: hidden;
+        background-color:#078080;
+        border-radius: 40px;
+        border-width: 0;
+        box-shadow: rgba(50, 50, 93, .1) 0 0 0 1px inset,rgba(50, 50, 93, .3) 0 2px 5px 0,rgba(0, 0, 0, .07) 0 1px 1px 0;
+        box-sizing: border-box;
+        color: #232323; 
+        cursor: pointer;
+        font-family: "Montserrat", sans-serif;
+        font-size:small;
+        height: 44px;
+        line-height: 1.15;
+        margin: 12px 0 0;
+        outline: none;
+        overflow: hidden;
+        padding: 0 25px;
+        padding: 10px 20px 10px 20px;
+        
+        text-align: center;
+        text-transform: none;
+        transform: translate(42.5vw,6.3vw);
+    
+        transition: all .2s,box-shadow .08s ease-in;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+        width: 100%;
+        cursor: pointer;
+        height: min-content;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto;
+        
+      }
+      button:hover {
+        background-color: #0c9494;
+        color: white;
+      }
+      .signout{
+        transform: translate(20vw,18vw);
+        /* font-size: smaller; */
+        width: 20%;
+        height: min-content;
+        background-color:#078080;
+        color: #232323;
+      }
+      .signout:hover{
+        transform: translate(20vw,18vw);
+        /* font-size: smaller; */
+        width: 20%;
+        height: min-content;
+        background-color:#0c9494;
+        color: white
+      }
+      }
+
+  @media screen and (max-width: 800px) {
+   body{
+    height: 170vw;
+   }
   .dropdowns-container {
     transform: translateY(1.5vw);
     display: flex;
@@ -312,7 +648,7 @@ button {
     
     text-align: center;
     text-transform: none;
-    transform: translate(44.5vw,6.3vw);
+    transform: translate(40vw,6.3vw);
 
     transition: all .2s,box-shadow .08s ease-in;
     user-select: none;
@@ -331,19 +667,485 @@ button {
     color: white;
   }
   .signout{
-    transform: translate(25vw,16vw);
+    transform: translate(17.5vw,17vw);
     /* font-size: smaller; */
-    width: 20%;
+    width: 25%;
     height: min-content;
     background-color:#078080;
     color: #232323;
   }
   .signout:hover{
-    transform: translate(25vw,16vw);
+    transform: translate(17,5vw,17vw);
     /* font-size: smaller; */
-    width: 20%;
+    width: 25%;
     height: min-content;
     background-color:#0c9494;
     color: white
   }
   }
+
+@media screen and (max-width: 600px) {
+   body{
+    height: 200vw;
+   }
+    .dropdowns-container {
+      transform: translateY(1.5vw);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      font-family: "Montserrat", sans-serif;
+      margin-left: 3%;
+      margin-right: 3%;
+      font-size: small;
+    }
+  
+    button {
+   
+  
+      appearance: button;
+      backface-visibility: hidden;
+      background-color:#078080;
+      border-radius: 40px;
+      border-width: 0;
+      box-shadow: rgba(50, 50, 93, .1) 0 0 0 1px inset,rgba(50, 50, 93, .3) 0 2px 5px 0,rgba(0, 0, 0, .07) 0 1px 1px 0;
+      box-sizing: border-box;
+      color: #232323; 
+      cursor: pointer;
+      font-family: "Montserrat", sans-serif;
+      font-size:small;
+      height: 44px;
+      line-height: 1.15;
+      margin: 12px 0 0;
+      outline: none;
+      overflow: hidden;
+      padding: 0 25px;
+      padding: 10px 20px 10px 20px;
+      
+      text-align: center;
+      text-transform: none;
+      transform: translate(44.5vw,6.3vw);
+  
+      transition: all .2s,box-shadow .08s ease-in;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+      width: 20%;
+      cursor: pointer;
+      height: min-content;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto;
+      
+    }
+    button:hover {
+      background-color: #0c9494;
+      color: white;
+    }
+    .signout{
+      transform: translate(25vw,14vw);
+      /* font-size: smaller; */
+      width: 20%;
+      height: min-content;
+      background-color:#078080;
+      color: #232323;
+    }
+    .signout:hover{
+      transform: translate(25vw,14vw);
+      /* font-size: smaller; */
+      width: 20%;
+      height: min-content;
+      background-color:#0c9494;
+      color: white
+    }
+    }
+
+    @media screen and (max-width: 400px) {
+   
+      .dropdowns-container {
+        transform: translateY(1.5vw);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        font-family: "Montserrat", sans-serif;
+        margin-left: 3%;
+        margin-right: 3%;
+        font-size: small;
+      }
+    
+      button {
+     
+    
+        appearance: button;
+        backface-visibility: hidden;
+        background-color:#078080;
+        border-radius: 40px;
+        border-width: 0;
+        box-shadow: rgba(50, 50, 93, .1) 0 0 0 1px inset,rgba(50, 50, 93, .3) 0 2px 5px 0,rgba(0, 0, 0, .07) 0 1px 1px 0;
+        box-sizing: border-box;
+        color: #232323; 
+        cursor: pointer;
+        font-family: "Montserrat", sans-serif;
+        font-size:small;
+        height: 44px;
+        line-height: 1.15;
+        margin: 12px 0 0;
+        outline: none;
+        overflow: hidden;
+        padding: 0 25px;
+        padding: 10px 20px 10px 20px;
+        
+        text-align: center;
+        text-transform: none;
+        transform: translate(30.5vw,6.3vw);
+    
+        transition: all .2s,box-shadow .08s ease-in;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+        width: 100%;
+        cursor: pointer;
+        height: min-content;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto;
+        
+      }
+      button:hover {
+        background-color: #0c9494;
+        color: white;
+      }
+      .signout{
+        transform: translate(20vw,18vw);
+        /* font-size: smaller; */
+        width: 20%;
+        height: min-content;
+        background-color:#078080;
+        color: #232323;
+      }
+      .signout:hover{
+        transform: translate(20vw,18vw);
+        /* font-size: smaller; */
+        width: 20%;
+        height: min-content;
+        background-color:#0c9494;
+        color: white
+      }
+      }
+  @media screen and (max-width: 375px) {
+   
+    .dropdowns-container {
+      transform: translateY(1.5vw);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      font-family: "Montserrat", sans-serif;
+      margin-left: 3%;
+      margin-right: 3%;
+      font-size: small;
+    }
+  
+    button {
+   
+  
+      appearance: button;
+      backface-visibility: hidden;
+      background-color:#078080;
+      border-radius: 40px;
+      border-width: 0;
+      box-shadow: rgba(50, 50, 93, .1) 0 0 0 1px inset,rgba(50, 50, 93, .3) 0 2px 5px 0,rgba(0, 0, 0, .07) 0 1px 1px 0;
+      box-sizing: border-box;
+      color: #232323; 
+      cursor: pointer;
+      font-family: "Montserrat", sans-serif;
+      font-size:small;
+      height: 44px;
+      line-height: 1.15;
+      margin: 12px 0 0;
+      outline: none;
+      overflow: hidden;
+      padding: 0 25px;
+      padding: 10px 20px 10px 20px;
+      
+      text-align: center;
+      text-transform: none;
+      transform: translate(42.5vw,6.3vw);
+  
+      transition: all .2s,box-shadow .08s ease-in;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+      width: 100%;
+      cursor: pointer;
+      height: min-content;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto;
+      
+    }
+    button:hover {
+      background-color: #0c9494;
+      color: white;
+    }
+    .signout{
+      transform: translate(20vw,18vw);
+      /* font-size: smaller; */
+      width: 20%;
+      height: min-content;
+      background-color:#078080;
+      color: #232323;
+    }
+    .signout:hover{
+      transform: translate(20vw,18vw);
+      /* font-size: smaller; */
+      width: 20%;
+      height: min-content;
+      background-color:#0c9494;
+      color: white
+    }
+    }
+@media screen and (max-width: 320px) {
+ body{
+
+  overflow-y: scroll;
+  height: 330vw;
+ }
+.dropdowns-container {
+  transform: translateY(1.5vw);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-family: "Montserrat", sans-serif;
+  margin-left: 3%;
+  margin-right: 3%;
+  font-size: small;
+}
+
+button {
+
+
+  appearance: button;
+  backface-visibility: hidden;
+  background-color:#078080;
+  border-radius: 40px;
+  border-width: 0;
+  box-shadow: rgba(50, 50, 93, .1) 0 0 0 1px inset,rgba(50, 50, 93, .3) 0 2px 5px 0,rgba(0, 0, 0, .07) 0 1px 1px 0;
+  box-sizing: border-box;
+  color: #232323; 
+  cursor: pointer;
+  font-family: "Montserrat", sans-serif;
+  font-size:small;
+  height: 44px;
+  line-height: 1.15;
+  margin: 12px 0 0;
+  outline: none;
+  overflow: hidden;
+  padding: 0 25px;
+  padding: 10px 20px 10px 20px;
+  
+  text-align: center;
+  text-transform: none;
+  transform: translate(40vw,6.3vw);
+
+  transition: all .2s,box-shadow .08s ease-in;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: 20%;
+  cursor: pointer;
+  height: min-content;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  
+}
+button:hover {
+  background-color: #0c9494;
+  color: white;
+}
+.signout{
+  transform: translate(17.5vw,24vw);
+  /* font-size: smaller; */
+  width: 25%;
+  height: min-content;
+  background-color:#078080;
+  color: #232323;
+}
+.signout:hover{
+  transform: translate(17,5vw,24vw);
+  /* font-size: smaller; */
+  width: 25%;
+  height: min-content;
+  background-color:#0c9494;
+  color: white
+}
+}
+@media screen and (max-width: 360px) {
+  body{
+ 
+  
+   height: 310vw;
+  }
+  #enterbtn{
+    transform: translate(39.4vw,4.6vw);
+    font-size: small;
+    height: min-content;
+    background-color: #078080;
+    color: #232323;
+
+  }
+  #enterbtn:hover{
+    transform: translate(39.4vw,4.6vw);
+    font-size: small;
+    height: min-content;
+    background-color: #0c9494;
+    color: white;
+
+
+  }
+ .dropdowns-container {
+   transform: translateY(1.5vw);
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
+   font-family: "Montserrat", sans-serif;
+   margin-left: 3%;
+   margin-right: 3%;
+   font-size: small;
+ }
+ 
+ button {
+ 
+ 
+   appearance: button;
+   backface-visibility: hidden;
+   background-color:#078080;
+   border-radius: 40px;
+   border-width: 0;
+   box-shadow: rgba(50, 50, 93, .1) 0 0 0 1px inset,rgba(50, 50, 93, .3) 0 2px 5px 0,rgba(0, 0, 0, .07) 0 1px 1px 0;
+   box-sizing: border-box;
+   color: #232323; 
+   cursor: pointer;
+   font-family: "Montserrat", sans-serif;
+   font-size:small;
+   height: 44px;
+   line-height: 1.15;
+   margin: 12px 0 0;
+   outline: none;
+   overflow: hidden;
+   padding: 0 25px;
+   padding: 10px 20px 10px 20px;
+   
+   text-align: center;
+   text-transform: none;
+   transform: translate(40vw,6.3vw);
+ 
+   transition: all .2s,box-shadow .08s ease-in;
+   user-select: none;
+   -webkit-user-select: none;
+   touch-action: manipulation;
+   width: 20%;
+   cursor: pointer;
+   height: min-content;
+   justify-content: center;
+   align-items: center;
+   margin: 0 auto;
+   
+ }
+ button:hover {
+   background-color: #0c9494;
+   color: white;
+ }
+ .signout{
+   transform: translate(17.5vw,24vw);
+   /* font-size: smaller; */
+   width: 25%;
+   height: min-content;
+   background-color:#078080;
+   color: #232323;
+ }
+ .signout:hover{
+   transform: translate(17,5vw,24vw);
+   /* font-size: smaller; */
+   width: 25%;
+   height: min-content;
+   background-color:#0c9494;
+   color: white
+ }
+ }
+
+@media screen and (max-width: 320px) {
+ body{
+
+  overflow-y: scroll;
+  height: 330vw;
+ }
+.dropdowns-container {
+  transform: translateY(1.5vw);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-family: "Montserrat", sans-serif;
+  margin-left: 3%;
+  margin-right: 3%;
+  font-size: small;
+}
+
+button {
+
+
+  appearance: button;
+  backface-visibility: hidden;
+  background-color:#078080;
+  border-radius: 40px;
+  border-width: 0;
+  box-shadow: rgba(50, 50, 93, .1) 0 0 0 1px inset,rgba(50, 50, 93, .3) 0 2px 5px 0,rgba(0, 0, 0, .07) 0 1px 1px 0;
+  box-sizing: border-box;
+  color: #232323; 
+  cursor: pointer;
+  font-family: "Montserrat", sans-serif;
+  font-size:small;
+  height: 44px;
+  line-height: 1.15;
+  margin: 12px 0 0;
+  outline: none;
+  overflow: hidden;
+  padding: 0 25px;
+  padding: 10px 20px 10px 20px;
+  
+  text-align: center;
+  text-transform: none;
+  transform: translate(40vw,6.3vw);
+
+  transition: all .2s,box-shadow .08s ease-in;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: 20%;
+  cursor: pointer;
+  height: min-content;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  
+}
+button:hover {
+  background-color: #0c9494;
+  color: white;
+}
+.signout{
+  transform: translate(17.5vw,24vw);
+  /* font-size: smaller; */
+  width: 25%;
+  height: min-content;
+  background-color:#078080;
+  color: #232323;
+}
+.signout:hover{
+  transform: translate(17,5vw,24vw);
+  /* font-size: smaller; */
+  width: 25%;
+  height: min-content;
+  background-color:#0c9494;
+  color: white
+}
+}
