@@ -33,11 +33,15 @@ export  default function Form({ user }) {
   const [desc,setDesc] = useState([]);
   const [choices,setChoices] = useState([]);
   const [ans,setAns] = useState([]);
+  const [dnd,setAnsDND] = useState([]);
+  const [mtf,setAnsMTF] = useState([]);
   const [qidtemp,setQid] = useState([]);
   const[newiN,setIN] = useState([]);
   const [newq,setNewq] = useState([]);
   const [newchoices,setNewchoices] = useState([]);
   const [newans,setNewans] = useState([]);
+  const [m,setMTF] = useState([]);
+  const [d,setDND] = useState([]);
   const [newi,setI] = useState([]);
   const [keys,setKeys] = useState([]);
   const [newk,setK] = useState([]);
@@ -45,6 +49,7 @@ export  default function Form({ user }) {
   const [TN,setTopicName] = useState([]);
   const [ profile, setProfile ] = useState([]);
   const [flagD,setFlagD] = useState([]);
+  const [flagM,setFlagM] = useState([]);
   var userCount;
   const [ testcount, setTest ] = useState([]);
   const [searchparams] = useSearchParams();
@@ -56,6 +61,7 @@ export  default function Form({ user }) {
   };
 
   const usercounts = [];
+
 
   useEffect(() => {
     welcometoast();
@@ -138,6 +144,7 @@ const logOut = () => {
   //   numCorrected: 0 // initialize the number of corrected questions to 0
   // });
   
+
   const firebaseRef = firebase.database().ref();
   const currentUser = firebase.auth().currentUser;
   
@@ -154,15 +161,18 @@ const logOut = () => {
         flaguser = 1;
       }
     });
-if(flaguser == 0)
-{
-  firebaseRef.child('users').push({
+
+  if(flaguser == 0)
+  { firebaseRef.child('users').push({
     name: user.displayName,
     email: user.email,
     numCorrected: 0,
     quescorr: []
   });
-}
+
+
+  }
+   
   
 
   // else{
@@ -215,7 +225,7 @@ if(flaguser == 0)
   // const [data, setData] = useState([]);
   var test = []
 
-  // var ref = firebase.database().ref('/users');
+  // var ref = firebase.database().ref('/data/questionbank/');
   // ref.remove()
   //   .then(function() {
   //       console.log("Record deleted successfully");
@@ -226,7 +236,8 @@ if(flaguser == 0)
 
   const fetchData = async () => {
     const dbRef = ref(getDatabase());
-    
+    setFlagD(0);
+    setFlagM(0);
     get(child(dbRef, `data/questionbank`)).then((snapshot) => {
       console.log("Outer");
       if (snapshot.exists()) {
@@ -262,6 +273,13 @@ if(flaguser == 0)
                     setFlagD(1);
                     setChoices("");
                   }
+
+                  if(childData.topics_content[i].topic_content[k].type=="MTF")
+                  {
+                    setFlagM(1);
+                    setChoices("");
+                  }
+                  
                     setIN(i)
                     // flag = 1;
                     console.log(childSnapshot.key);
@@ -280,11 +298,17 @@ if(flaguser == 0)
                         setDesc(childData.topics_content[i].topic_content[k].desc)
                         setChoices(childData.topics_content[i].topic_content[k].level_content.questions[j].choices);
                        
-                        if(childData.topics_content[i].topic_content[k].level_content.questions[j].question=="")
+                        if(childData.topics_content[i].topic_content[k].level_content.questions[j].question=="" && childData.topics_content[i].topic_content[k].type == "MTF" )
                         { 
-                          setAns(childData.topics_content[i].topic_content[k].level_content.questions[j].answers);
+                          setMTF(childData.topics_content[i].topic_content[k].level_content.questions[j].answers);
                           
                         }
+
+                        if(childData.topics_content[i].topic_content[k].level_content.questions[j].question=="" && childData.topics_content[i].topic_content[k].type == "DND" )
+                        { 
+                          setDND(childData.topics_content[i].topic_content[k].level_content.questions[j].answers);
+                        }
+                        
                     
       
                       }
@@ -402,7 +426,11 @@ if(flaguser == 0)
 
  console.log("Newarr",newarray);
   const handleAns = (event) => {
-    setNewans(event.target.innerText);
+  
+
+      setNewans(event.target.innerText);
+    
+   
 
   }
 
@@ -413,7 +441,9 @@ if(flaguser == 0)
   const updateData = async () => {
     const db = getDatabase();
     const updates = {};
-    if(newq!="")
+    var newQ1 = ""
+   
+    if((newq!="" && flagD!=1))
     {  
         
         updates["data/" + "questionbank/" + keys + "/"+"topics_content" + "/" + newiN + "/" + "topic_content"+ "/" + newk + "/" + "level_content" + "/" + "questions" + "/" + newi + "/"+"question"] = newq;
@@ -421,23 +451,26 @@ if(flaguser == 0)
     update(ref(db), updates);
     successtoast();
     }
-    if(newans!=""){
+
+
+    if((newans!="" && (flagD==1) )){
       updates["data/" + "questionbank/" + keys + "/"+"topics_content" + "/" + newiN + "/" + "topic_content"+ "/" + newk + "/" + "level_content" + "/" + "questions" + "/" + newi + "/" + "answers"] = newans;
      
       update(ref(db), updates);
 
     }
+    
+
 
     for(let i =0 ;i<results.length;i++)
     {
-      updates["data/" + "questionbank/" + keys + "/"+"topics_content" + "/" + newiN + "/" + "topic_content"+ "/" + newk + "/" + "level_content" + "/" + "questions" + "/" + newi +  "/" + "choices" + "/" + i] = newarray[i];
+      updates["data/" + "questionbank/" + keys + "/"+"topics_content" + "/" + newiN + "/" + "topic_content"+ "/" + newk + "/" + "level_content" + "/" + "questions" + "/" + newi +  "/" + "choices" + "/" + i] = newarray[i].toString().replace(/,/g, ' ');
  
       update(ref(db), updates);
     }
     let refstr = "data/" + "questionbank/" + keys + "/"+"questions" + "/" + newi;
 
 
-    update(ref(db), updates);
     // let refstr1 = "data/" + "questionbank/" + keys + "/"+"topics_content" + "/" + newiN + "/" + "topic_content"+ "/" + newk + "/" + "level_content" + "/" + "questions" + "/" + newi+"/"+"ModifiedBy";
     // const dbref1 = ref(db, refstr1);
     // const dbref = ref(db, refstr1);
@@ -467,21 +500,53 @@ if(flaguser == 0)
     });
 
     successtoast();
-
+    saveAndClear();
   }
   const results = [];
-if(flagD!=1)
-{
-
-choices.forEach(choice => {
-  results.push(
-   <p>{choice}</p>
-  );
   
-});
+if((flagM == 1))
+{
+console.log("MTF");
+}
+else if(flagD == 1)
+{
+console.log("DND");
+}
+
+else{
+  choices.forEach(choice => {
+    results.push(
+     <p>{choice}</p>
+    );
+    
+  });
 }
 
 
+function saveAndClear() {
+  var element1 = document.getElementById("one");
+  var element2 = document.getElementById("two");
+  var element3 = document.getElementById("three");
+  var element4 = document.getElementById("topic");
+
+  
+  
+  // Perform any necessary operations with the content here
+  // For example, you can send it to a server using an AJAX request
+  
+  setTimeout(function() {
+    element1.innerHTML = "";
+  }, 3000);
+  setTimeout(function() {
+    element2.innerHTML = "";
+  }, 3000);
+  setTimeout(function() {
+    element3.innerHTML = "";
+  }, 3000);
+  setTimeout(function() {
+    element4.innerHTML = "";
+  }, 3000);
+}
 console.log("jk");
 console.log(arrc);
 // console.log("Name",name);
@@ -559,14 +624,18 @@ console.log("NAME",localStorage.getItem("Name"));
     {/* <p class = "questioncorr">Number of questions corrected: {count1}</p> */}
 <div className='editableText'>
   <div className='question'>
-  <p>Topic Name: {TN}</p>
+  <p id = "topic">Topic Name: {TN}</p>
 <p>{desc}</p>
 <p class = "p1" >Q:</p>
-  <p contentEditable="true" class = "p2" onInput={handleQuestion}>{sques}</p>
+  <p id ="one"contentEditable="true" class = "p2" onInput={handleQuestion}>{sques}</p>
 
 
-   <p contentEditable="true" onInput={handleChoices}>{results}</p>
-   <p contentEditable="true" onInput={handleAns}>{ans}</p>
+   <p id = "two" contentEditable="true" onInput={handleChoices}>{results}</p>
+   <p id = "three" contentEditable="true" onInput={handleAns}>
+   {type === "MTF" ? m : ''}
+   {type === "DND" ? d :''}
+  
+   </p>
    <p>{ console.log(user.displayName)}</p>
   
    {/* <p>{searchparams.get("id")}</p> */}
