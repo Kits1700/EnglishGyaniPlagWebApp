@@ -1,5 +1,9 @@
 {
   "projects": {
-    "default": "fbeg-375009"
-  }
+    "default": "fbeg-375009",
+    "n": "egplag",
+    "eg": "fbeg-375009"
+  },
+  "targets": {},
+  "etags": {}
 }

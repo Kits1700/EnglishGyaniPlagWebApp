@@ -21,6 +21,7 @@ export  default function Form({ user }) {
   const [option5, setOption5] = useState('');
   const [option6, setOption6] = useState('');
 
+  const newarray = [];
   const [b,setB] = useState([]);
   const [teacher,setTeacher] = useState([]);
   const [category,setCategory] = useState([]);
@@ -66,6 +67,7 @@ export  default function Form({ user }) {
   useEffect(() => {
     welcometoast();
   },[]);
+
   useEffect(() => {
       
   const firebaseRef1 = firebase.database().ref();
@@ -233,11 +235,14 @@ const logOut = () => {
   //   .catch(function(error) {
   //       console.log("Error deleting record: " + error.message);
   //   });
+// Try saving dB locally, iterate through that
 
   const fetchData = async () => {
+   
     const dbRef = ref(getDatabase());
-    setFlagD(0);
-    setFlagM(0);
+
+    // setFlagD(0);
+    // setFlagM(0);
     get(child(dbRef, `data/questionbank`)).then((snapshot) => {
       console.log("Outer");
       if (snapshot.exists()) {
@@ -259,8 +264,9 @@ const logOut = () => {
                   
                  for( let i = 0; i<childData.topics_content.length;i++)
                  for(let k = 0; k<childData.topics_content[i].topic_content.length;k++)
-                 { setK(k);
-                  setTopicName(childData.topics_content[i].topic_name);
+                 { 
+                  
+                  console.log("TopicName",childData.topics_content[i].topic_name);
                 {console.log("Length",childData.topics_content.length);
                 console.log("Teacher Info",childData.topics_content[i].teacher_info);
                 console.log("Cat ID",childData.category_id);
@@ -268,16 +274,19 @@ const logOut = () => {
                 console.log("Difficulty",childData.topics_content[i].topic_content[k].level_difficulty);
                 console.log("Question Type",childData.topics_content[i].topic_content[k].type);
                   if((teacher==childData.topics_content[i].teacher_info)&&(category==childData.category_id)&&(topic==childData.topics_content[i].topic_id)&&(td==childData.topics_content[i].topic_content[k].level_difficulty)&&(t==childData.topics_content[i].topic_content[k].type))
-                  {if(childData.topics_content[i].topic_content[k].type=="DND")
+                  {
+                    setK(k);
+                    setTopicName(childData.topics_content[i].topic_name);
+                    if(childData.topics_content[i].topic_content[k].type=="DND")
                   {
                     setFlagD(1);
-                    setChoices("");
+                    setChoices();
                   }
 
                   if(childData.topics_content[i].topic_content[k].type=="MTF")
                   {
                     setFlagM(1);
-                    setChoices("");
+                    setChoices();
                   }
                   
                     setIN(i)
@@ -295,19 +304,20 @@ const logOut = () => {
                         setI(j);
                         setQid(childData.topics_content[i].topic_content[k].level_content.questions[j].qid);
                         setSques(childData.topics_content[i].topic_content[k].level_content.questions[j].question);
+                        setNewq(childData.topics_content[i].topic_content[k].level_content.questions[j].question);
                         setDesc(childData.topics_content[i].topic_content[k].desc)
                         setChoices(childData.topics_content[i].topic_content[k].level_content.questions[j].choices);
-                       
-                        if(childData.topics_content[i].topic_content[k].level_content.questions[j].question=="" && childData.topics_content[i].topic_content[k].type == "MTF" )
-                        { 
-                          setMTF(childData.topics_content[i].topic_content[k].level_content.questions[j].answers);
-                          
-                        }
+                    
+                          // setMTF(childData.topics_content[i].topic_content[k].level_content.questions[j].answers);
+                          setAns(childData.topics_content[i].topic_content[k].level_content.questions[j].answers);
+                          setNewans(childData.topics_content[i].topic_content[k].level_content.questions[j].answers);
 
-                        if(childData.topics_content[i].topic_content[k].level_content.questions[j].question=="" && childData.topics_content[i].topic_content[k].type == "DND" )
-                        { 
-                          setDND(childData.topics_content[i].topic_content[k].level_content.questions[j].answers);
-                        }
+                       
+
+                     
+                          // setDND(childData.topics_content[i].topic_content[k].level_content.questions[j].answers);
+                          // setAns(childData.topics_content[i].topic_content[k].level_content.questions[j].answers);
+                        
                         
                     
       
@@ -325,6 +335,8 @@ const logOut = () => {
                     let qid1 = ques;
                     let temp = teacher1 +"_"+category1 +"_"+ topic1+"_"+type1+"_"+topicdiff1+"_"+qid1;
                     setB(temp);
+                    console.log("B",b);
+                    console.log("MTF",m);
                     
                   }
 
@@ -393,38 +405,41 @@ const logOut = () => {
     });
   }
 ;
+// arrc = choices;
+// console.log(Object.values(choices));
+// console.log("String",arrc.toString());
+// arrc2 = arrc.toString();
+// console.log("arrc2",arrc2);
+// arrc2 = arrc2.split(' ');
+// arr3 = arrc2.toString();
+// console.log("arrc22",arr3);
+// arr3 = arr3.split('\n');
+// console.log("arrc3",arr3);
+// for(let i =0;i<arr3.length;i++)
+// {
+//  if(arr3[i]!='')
+//  {
+//    newarray.push(arr3[i]);
+//  }
+// }
+
+// console.log("Newarr",newarray);
   const handleQuestion = (event) => {
     setNewq(event.target.innerText);
+
   };
   var i =0;
   var arrc = [];
   var arrc2 = [];
   var arr3 =[];
-  var newarray = [];
+
   const handleChoices = (event) => {
 
     setNewchoices(event.target.innerText);
+    
   
   }
- arrc = newchoices;
- console.log(Object.values(newchoices));
- console.log("String",arrc.toString());
- arrc2 = arrc.toString();
- console.log("arrc2",arrc2);
- arrc2 = arrc2.split(' ');
- arr3 = arrc2.toString();
- console.log("arrc22",arr3);
- arr3 = arr3.split('\n');
- console.log("arrc3",arr3);
- for(let i =0;i<arr3.length;i++)
- {
-  if(arr3[i]!='')
-  {
-    newarray.push(arr3[i]);
-  }
- }
 
- console.log("Newarr",newarray);
   const handleAns = (event) => {
   
 
@@ -437,9 +452,59 @@ const logOut = () => {
   
   // const usersRef = dbRef.child('users');
 
- 
+ var arrc1 = [];
+ var arrc21 = [];
+ var arr31 = [];
   const updateData = async () => {
     const db = getDatabase();
+    console.log("FlagM",flagM);
+    console.log("FlagD",flagD);
+    if(flagM == 1)
+    {
+
+      console.log("FlagM");
+      
+    }
+    else if(flagD == 1)
+    {
+      console.log("FlagD");
+      
+
+    }
+    else if(flagM!=1 || flagD!=1)
+    {
+      arrc = newchoices;
+      arrc2 = arrc.toString();
+      arrc2 = arrc2.split(' ');
+      arr3 = arrc2.toString();
+      arr3 = arr3.split('\n');
+  
+      arrc1 = choices;
+      
+      if(arrc1 != "")
+      {
+        arrc21 = arrc1.toString();
+        arrc21 = arrc21.split(' ');
+        arr31 = arrc21.toString();
+        arr31 = arr31.split('\n');
+      }
+   
+  
+  
+      for(let i =0;i<arr3.length;i++)
+      {
+       if(arr3[i]!='')
+       {
+         newarray.push(arr3[i]);
+       }
+      //  else{
+      //   newarray.push(arr31[i]);
+      //  }
+      }
+     
+      console.log("Newarr",newarray);
+    }
+  
     const updates = {};
     var newQ1 = ""
    
@@ -448,29 +513,57 @@ const logOut = () => {
         
         updates["data/" + "questionbank/" + keys + "/"+"topics_content" + "/" + newiN + "/" + "topic_content"+ "/" + newk + "/" + "level_content" + "/" + "questions" + "/" + newi + "/"+"question"] = newq;
          
+        console.log("Newq is  not null");
     update(ref(db), updates);
-    successtoast();
+    // successtoast();
     }
+    else if(newq == ""){
+      console.log("Newq is null");
+    }
+ 
 
 
     if((newans!="" && (flagD==1) )){
       updates["data/" + "questionbank/" + keys + "/"+"topics_content" + "/" + newiN + "/" + "topic_content"+ "/" + newk + "/" + "level_content" + "/" + "questions" + "/" + newi + "/" + "answers"] = newans;
+    
+      update(ref(db), updates);
+  
+
+    }
+    else if(newans!="" && (flagM==1))
+    {
+      updates["data/" + "questionbank/" + keys + "/"+"topics_content" + "/" + newiN + "/" + "topic_content"+ "/" + newk + "/" + "level_content" + "/" + "questions" + "/" + newi + "/" + "answers"] = newans;
      
+    
       update(ref(db), updates);
 
     }
     
 
 
-    for(let i =0 ;i<results.length;i++)
+   
+
+    for(let i =0;i<arr3.length;i++)
     {
-      updates["data/" + "questionbank/" + keys + "/"+"topics_content" + "/" + newiN + "/" + "topic_content"+ "/" + newk + "/" + "level_content" + "/" + "questions" + "/" + newi +  "/" + "choices" + "/" + i] = newarray[i].toString().replace(/,/g, ' ');
- 
-      update(ref(db), updates);
-    }
+     if(arr3[i]!='')
+     {
+      for(let i =0 ;i<results.length;i++)
+      {
+        updates["data/" + "questionbank/" + keys + "/"+"topics_content" + "/" + newiN + "/" + "topic_content"+ "/" + newk + "/" + "level_content" + "/" + "questions" + "/" + newi +  "/" + "choices" + "/" + i] = newarray[i];
+            
+     
+      }
+    
+   
+     }
+     else{
+    console.log("Else loop");
+     }
+    } 
+   
     let refstr = "data/" + "questionbank/" + keys + "/"+"questions" + "/" + newi;
 
-
+   
     // let refstr1 = "data/" + "questionbank/" + keys + "/"+"topics_content" + "/" + newiN + "/" + "topic_content"+ "/" + newk + "/" + "level_content" + "/" + "questions" + "/" + newi+"/"+"ModifiedBy";
     // const dbref1 = ref(db, refstr1);
     // const dbref = ref(db, refstr1);
@@ -498,9 +591,12 @@ const logOut = () => {
    
 
     });
-
+    update(ref(db), updates);
     successtoast();
     saveAndClear();
+    // refreshEditableContent();
+ 
+    // location.reload();
   }
   const results = [];
   
@@ -524,33 +620,26 @@ else{
 
 
 function saveAndClear() {
-  var element1 = document.getElementById("one");
-  var element2 = document.getElementById("two");
-  var element3 = document.getElementById("three");
-  var element4 = document.getElementById("topic");
+  // results = [];
+  // newarray = [];
+  setSques();
+ 
+  // setNewq();
+  setDesc();
 
-  
-  
-  // Perform any necessary operations with the content here
-  // For example, you can send it to a server using an AJAX request
-  
-  setTimeout(function() {
-    element1.innerHTML = "";
-  }, 3000);
-  setTimeout(function() {
-    element2.innerHTML = "";
-  }, 3000);
-  setTimeout(function() {
-    element3.innerHTML = "";
-  }, 3000);
-  setTimeout(function() {
-    element4.innerHTML = "";
-  }, 3000);
+  setNewchoices([]);
+  setChoices([]);
+ setMTF();
+setDND();
+setTopicName();
+setFlagD(0);
+setFlagM(0);
+setAns();
+setNewans();
+
 }
-console.log("jk");
-console.log(arrc);
-// console.log("Name",name);
-console.log("NAME",localStorage.getItem("Name"));
+
+
   return (
     
     <div className='main'>
@@ -624,18 +713,18 @@ console.log("NAME",localStorage.getItem("Name"));
     {/* <p class = "questioncorr">Number of questions corrected: {count1}</p> */}
 <div className='editableText'>
   <div className='question'>
-  <p id = "topic">Topic Name: {TN}</p>
-<p>{desc}</p>
-<p class = "p1" >Q:</p>
-  <p id ="one"contentEditable="true" class = "p2" onInput={handleQuestion}>{sques}</p>
+  <div id = "topic">Topic Name: {TN}</div>
+<div>{desc}</div>
+<div class = "p1" >Q:</div>
+  <div id ="one"contentEditable="true" class = "p2" onInput={handleQuestion}>{sques}</div>
 
 
-   <p id = "two" contentEditable="true" onInput={handleChoices}>{results}</p>
-   <p id = "three" contentEditable="true" onInput={handleAns}>
-   {type === "MTF" ? m : ''}
-   {type === "DND" ? d :''}
+   <div id = "two" contentEditable="true" onInput={handleChoices}>{results}</div>
+   <div id = "three" contentEditable="true" onInput={handleAns}>
+
+   {type === "DND" ? ans : type === "MTF" ? ans : ''}
   
-   </p>
+   </div>
    <p>{ console.log(user.displayName)}</p>
   
    {/* <p>{searchparams.get("id")}</p> */}
@@ -649,7 +738,6 @@ console.log("NAME",localStorage.getItem("Name"));
 <div id="successtoast">Updated Successfully!</div>
 <div id="welcometoast">Welcome {user.displayName}!</div>
 {console.log("second" ,count1)}
-
 <button className='submit' onClick={updateData}><i class="fa fa-save"></i> Save</button>
 <button className= "signout"
             // style={{margin: '5%'}}
