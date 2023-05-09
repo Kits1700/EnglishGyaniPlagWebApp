@@ -11,6 +11,9 @@ body, html {
     
 
   }
+  span{
+    display: block;
+  }
   .p1{
 
     display: inline;
