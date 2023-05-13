@@ -22,7 +22,7 @@ import google from "./google";
 import { useLocation, useSearchParams } from "react-router-dom";
 
 export default function Form({ user }) {
-  const dbRef = ref(getDatabase());
+
   const [data1, setData1] = useState([]);
   const [option1, setOption1] = useState("");
   const [option2, setOption2] = useState("");
@@ -99,47 +99,45 @@ export default function Form({ user }) {
     });
     usercounts.push(<p>{userCount}</p>);
   }, [user]);
-  useEffect(() => {
-    onValue(dbRef, (snapshot) => {
-      // Get the downloaded data
-      const downloadedData = snapshot.val();
-
-      // Calculate the size of the downloaded data
-      const downloadedDataString = JSON.stringify(downloadedData);
-      const downloadedDataBytes = new Blob([downloadedDataString]).size;
-
-      // Update the total downloaded data size
-      downloadedDataSize += downloadedDataBytes;
-
-      console.log("Downloaded data size:", downloadedDataSize / 1048576, "MB");
-    });
-  },[]);
+ 
 
   useEffect(() => {
     const fetchData1 = async () => {
       try {
-        const snapshot = await get(child(dbRef, "data/questionbank"));
-        if (snapshot.exists()) {
-          const questionData = snapshot.val();
-          // Save the data locally
-          setData1(questionData);
+        // Check if the data exists in storage
+        const storedData = localStorage.getItem('data1');
+        if (storedData) {
+          
+          setData1(JSON.parse(storedData));
+          console.log("Data already present locally!");
         } else {
-          // Handle the case when the data does not exist
-          console.log("No data found in the database.");
+          const snapshot = await get(child(ref(getDatabase()), 'data/questionbank'));
+          if (snapshot.exists()) {
+            const questionData = snapshot.val();
+            // Save the data locally and in storage
+            setData1(questionData);
+            localStorage.setItem('data1', JSON.stringify(questionData));
+          } else {
+            // Handle the case when the data does not exist
+            console.log('No data found in the database.');
+          }
         }
       } catch (error) {
         // Handle any errors that occurred during fetching
-        console.error("Error fetching data:", error);
+        console.error('Error fetching data:', error);
       }
     };
 
+    console.log('Only once');
     fetchData1();
+    console.log('Data1', data1);
+
   }, []);
 
-  // Example usage: Access the locally saved data
+  // Access the locally saved data
   console.log("Data1", data1);
 
-  console.log("Data1Type", typeof data1);
+
   console.log("User", user.displayName);
 
   const logOut = () => {
@@ -726,6 +724,8 @@ export default function Form({ user }) {
         firebaseRef.child(`users/${userId}/quescorr`).push(b);
       }
     });
+
+    localStorage.setItem('data1', JSON.stringify(data1));
     update(ref(getDatabase()), updates);
     successtoast();
     saveAndClear();
@@ -877,10 +877,11 @@ export default function Form({ user }) {
         <div id="successtoast">Updated Successfully!</div>
         <div id="welcometoast">Welcome {user.displayName}!</div>
         {/* {console.log("second" ,count1)} */}
-        <button className="submit" onClick={updateData}>
+        <button className="submit" id = "save" onClick={updateData}>
           <i class="fa fa-save"></i> Save
         </button>
-        <button
+        <button 
+          id = "so"
           className="signout"
           // style={{margin: '5%'}}
           variant="outline-danger"

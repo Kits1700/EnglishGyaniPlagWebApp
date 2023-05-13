@@ -76,8 +76,8 @@ const Login = () => {
                        <button className="sign"
                         variant="outline-primary"
                         onClick={signInWithGoogle}
-                      > <img class = 'imgbtn' src={require('./btng.png')}height="42"/>
-                  Sign-in with Google
+                      > 
+                  Sign-in
                       </button> 
                {/* <img class = 'imgbtn' src={require('./btn3.png')} height="42" onClick={signInWithGoogle}></img> */}
                   </div>
